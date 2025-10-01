@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://32r1y35wu16o"]
+
+[ext_resource type="Texture2D" uid="uid://bkqjbrvmaogbf" path="res://pickups/hen.png" id="1_6mfol"]
+[ext_resource type="Script" uid="uid://dkopbs65aqkrv" path="res://pickups/hen.gd" id="1_estn1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_estn1"]
+atlas = ExtResource("1_6mfol")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iydfk"]
+atlas = ExtResource("1_6mfol")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h0787"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_estn1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iydfk")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rnlhb"]
+radius = 17.0
+
+[node name="Hen" type="Area2D"]
+collision_layer = 4
+script = ExtResource("1_estn1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_h0787")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_rnlhb")
