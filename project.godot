@@ -15,6 +15,14 @@ run/main_scene="uid://cmebmotxueji1"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_multiplayer/plugin.cfg")
+
+[gui]
+
+theme/custom="uid://c4vjpbjeeo4cp"
+
 [input]
 
 move_left={
