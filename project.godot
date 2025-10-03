@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Space Chicken"
-run/main_scene="uid://cmebmotxueji1"
+run/main_scene="uid://23f2lnjlgdhf"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Config="*res://config.gd"
 
 [editor_plugins]
 

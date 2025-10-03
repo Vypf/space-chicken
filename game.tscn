@@ -1,13 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://23f2lnjlgdhf"]
+[gd_scene load_steps=5 format=3 uid="uid://23f2lnjlgdhf"]
 
 [ext_resource type="Script" uid="uid://dg6w4mpejdt0q" path="res://game.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://csi27e1uhde5i" path="res://menus/online_multiplayer_screen.tscn" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://duduqyiwbiuho" path="res://addons/godot_multiplayer/game_instance/game_instance.gd" id="3_feb5d"]
+[ext_resource type="Script" uid="uid://b6xd7jiuwinua" path="res://addons/godot_multiplayer/lobby/LobbyClient.gd" id="4_fc0e3"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_e2o6t")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="OnlineMultiplayerScreen" parent="CanvasLayer" instance=ExtResource("2_e2o6t")]
+[node name="OnlineMultiplayerScreen" parent="CanvasLayer" node_paths=PackedStringArray("lobby_client") instance=ExtResource("2_e2o6t")]
 unique_name_in_owner = true
-address = "ws://localhost:17018"
+lobby_client = NodePath("../../LobbyClient")
+
+[node name="GameInstance" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_feb5d")
+metadata/_custom_type_script = "uid://duduqyiwbiuho"
+
+[node name="LobbyClient" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_fc0e3")
+game = "space-chicken"
+metadata/_custom_type_script = "uid://b6xd7jiuwinua"

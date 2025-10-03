@@ -1,17 +1,15 @@
 extends Control
 class_name OnlineMultiplayerScreen
 
-@export var address: String
+@export var lobby_client: LobbyClient
 
 @onready var lobby_panel: LobbyPanel = %LobbyPanel
-@onready var lobby_client: LobbyClient = %LobbyClient
 
 signal on_lobby_joined(port: int)
 
 var _requested_lobby_code: String
 
 func _ready():
-	lobby_client.join(address)
 	lobby_client.lobby_connected.connect(_on_lobby_connected)
 	lobby_client.lobby_created.connect(_on_lobby_created)
 	lobby_panel.on_host_click.connect(_on_host_click)
