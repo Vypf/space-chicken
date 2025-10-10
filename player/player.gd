@@ -1,9 +1,11 @@
 extends CharacterBody2D
 
+@onready var animation_tree := %AnimationTree
 @export var max_speed := 300.0
 @export var acceleration := 1800.0
 @export var deceleration := 1200.0
-var run_direction := "side"
+
+var last_facing_direction := Vector2(0, -1)
 
 func _physics_process(delta: float) -> void:
 
@@ -18,18 +20,16 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
-	if velocity.length() > 0.0:
-		if abs(velocity.x) < abs(velocity.y):
-			if velocity.y < 0.0:
-				run_direction = "back"
-			else:
-				run_direction = "front"
-		else:
-			run_direction = "side"
-			
-		$AnimatedSprite2D.play("run_" + run_direction)
-		$AnimatedSprite2D.flip_h = velocity.x < 0.0
-	else:
-		$AnimatedSprite2D.play("idle_" + run_direction)
+	var idle := (velocity.length() == 0.0)
 	
+	if !idle:
+		last_facing_direction = velocity.normalized()
+		
+	animation_tree.set("parameters/conditions/idle", idle)
+	animation_tree.set("parameters/conditions/run", !idle)
+
+	animation_tree.set("parameters/Idle/blend_position", last_facing_direction)
+	animation_tree.set("parameters/Run/blend_position", last_facing_direction)
+	
+
 	
