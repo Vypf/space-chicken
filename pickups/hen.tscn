@@ -29,10 +29,12 @@ animations = [{
 radius = 17.0
 
 [node name="Hen" type="Area2D"]
-collision_layer = 4
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_estn1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_h0787")
 animation = &"idle"

@@ -1,13 +1,10 @@
 extends Pickable
 
+@onready var animated_sprite = %AnimatedSprite2D
 
 func _ready():
-	body_entered.connect(_on_body_entered)
-	$AnimatedSprite2D.play("idle")
+	super()
+	animated_sprite.play("idle")
 
-
-func _on_body_entered(player: Node2D):
-	if not player is CharacterBody2D:
-		return
-	
+func interact(player: CharacterBody2D):
 	queue_free()
