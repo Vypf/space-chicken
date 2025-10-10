@@ -20,13 +20,10 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
-	var idle := (velocity.length() == 0.0)
+	var idle = !velocity
 	
 	if !idle:
 		last_facing_direction = velocity.normalized()
-		
-	animation_tree.set("parameters/conditions/idle", idle)
-	animation_tree.set("parameters/conditions/run", !idle)
 
 	animation_tree.set("parameters/Idle/blend_position", last_facing_direction)
 	animation_tree.set("parameters/Run/blend_position", last_facing_direction)
