@@ -11,14 +11,30 @@ config_version=5
 [application]
 
 config/name="Space Chicken"
-run/main_scene="uid://cmebmotxueji1"
+run/main_scene="uid://23f2lnjlgdhf"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Config="*res://config.gd"
 
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_multiplayer/plugin.cfg")
+
+[global_group]
+
+sync_npc=""
+
+[gui]
+
+theme/custom="uid://c4vjpbjeeo4cp"
 
 [input]
 

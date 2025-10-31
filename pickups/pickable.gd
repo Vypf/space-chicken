@@ -2,6 +2,7 @@
 class_name Pickable extends Area2D
 
 func _ready():
+	add_to_group("sync_npc")
 	# Layer 3 : Pickable (0010...)
 	collision_layer = 4
 	# Layer 1 : Player (1000...)
@@ -13,5 +14,7 @@ func _ready():
 func interact(player: CharacterBody2D)
 
 func _on_body_entered(player: Node2D):
+	if not is_multiplayer_authority():
+		return
 	if player is CharacterBody2D:
 		interact(player)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://32r1y35wu16o"]
+[gd_scene load_steps=8 format=3 uid="uid://32r1y35wu16o"]
 
 [ext_resource type="Texture2D" uid="uid://bkqjbrvmaogbf" path="res://pickups/hen.png" id="1_6mfol"]
 [ext_resource type="Script" uid="uid://dkopbs65aqkrv" path="res://pickups/hen.gd" id="1_estn1"]
@@ -28,6 +28,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_rnlhb"]
 radius = 17.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_estn1"]
+properties/0/path = NodePath(".:global_transform")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
 [node name="Hen" type="Area2D"]
 collision_layer = 0
 collision_mask = 0
@@ -42,3 +47,6 @@ animation = &"idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_rnlhb")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_estn1")
