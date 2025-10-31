@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://ct2po3rn5crwy"]
+[gd_scene load_steps=31 format=3 uid="uid://ct2po3rn5crwy"]
 
 [ext_resource type="Texture2D" uid="uid://53fh04v3j7bv" path="res://player/chicken.png" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://dks1gewrn0mnj" path="res://player/player.gd" id="1_rkbax"]
+[ext_resource type="Script" uid="uid://d1ei3myjpdmqy" path="res://addons/godot_multiplayer/game/input.gd" id="3_g1dw6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hg6s5"]
 radius = 5.0990195
@@ -299,6 +300,19 @@ _data = {
 &"run_right": SubResource("Animation_rgyib")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_g1dw6"]
+properties/0/path = NodePath(".:direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yw30f"]
+properties/0/path = NodePath(".:global_transform")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:velocity")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 6
 script = ExtResource("1_rkbax")
@@ -326,3 +340,26 @@ parameters/Run/blend_position = Vector2(-0.015948951, -0.27354264)
 libraries = {
 &"": SubResource("AnimationLibrary_g1dw6")
 }
+
+[node name="Input" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_g1dw6")
+metadata/_custom_type_script = "uid://d1ei3myjpdmqy"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Input"]
+replication_config = SubResource("SceneReplicationConfig_g1dw6")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_yw30f")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -40.0
+offset_right = 40.0
+
+[node name="Label" type="Label" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

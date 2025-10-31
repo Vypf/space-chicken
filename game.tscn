@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://23f2lnjlgdhf"]
+[gd_scene load_steps=11 format=3 uid="uid://23f2lnjlgdhf"]
 
 [ext_resource type="Script" uid="uid://dg6w4mpejdt0q" path="res://game.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://csi27e1uhde5i" path="res://menus/online_multiplayer_screen.tscn" id="2_e2o6t"]
-[ext_resource type="Script" uid="uid://duduqyiwbiuho" path="res://addons/godot_multiplayer/game_instance/game_instance.gd" id="3_feb5d"]
+[ext_resource type="Script" uid="uid://duduqyiwbiuho" path="res://addons/godot_multiplayer/game/game_instance.gd" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://c6klart7xn108" path="res://menus/waiting_room.tscn" id="3_ryrav"]
 [ext_resource type="Script" uid="uid://b6xd7jiuwinua" path="res://addons/godot_multiplayer/lobby/LobbyClient.gd" id="4_fc0e3"]
+[ext_resource type="Script" uid="uid://bmiddwn30p52v" path="res://addons/godot_multiplayer/lobby/lobby_manager.gd" id="5_7jktm"]
+[ext_resource type="PackedScene" uid="uid://cmebmotxueji1" path="res://common/dummy_scene.tscn" id="7_eow3j"]
+[ext_resource type="Script" uid="uid://c8scq0u65cci" path="res://addons/godot_multiplayer/lobby/LobbyServer.gd" id="7_hve3p"]
+[ext_resource type="Script" uid="uid://x3ptl6rgkiyc" path="res://addons/godot_multiplayer/game/player_spawner.gd" id="8_vef74"]
+[ext_resource type="Script" uid="uid://c4eqsjqskcgyt" path="res://addons/godot_multiplayer/game/npc_spawner.gd" id="10_hve3p"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_e2o6t")
@@ -13,6 +19,10 @@ script = ExtResource("1_e2o6t")
 [node name="OnlineMultiplayerScreen" parent="CanvasLayer" node_paths=PackedStringArray("lobby_client") instance=ExtResource("2_e2o6t")]
 unique_name_in_owner = true
 lobby_client = NodePath("../../LobbyClient")
+
+[node name="WaitingRoom" parent="CanvasLayer" instance=ExtResource("3_ryrav")]
+unique_name_in_owner = true
+visible = false
 
 [node name="GameInstance" type="Node" parent="."]
 unique_name_in_owner = true
@@ -24,3 +34,32 @@ unique_name_in_owner = true
 script = ExtResource("4_fc0e3")
 game = "space-chicken"
 metadata/_custom_type_script = "uid://b6xd7jiuwinua"
+
+[node name="LobbyManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_7jktm")
+metadata/_custom_type_script = "uid://bmiddwn30p52v"
+
+[node name="LobbyServer" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_hve3p")
+metadata/_custom_type_script = "uid://c8scq0u65cci"
+
+[node name="Level" parent="." instance=ExtResource("7_eow3j")]
+unique_name_in_owner = true
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="Level"]
+unique_name_in_owner = true
+script = ExtResource("8_vef74")
+player_scene_path = "uid://ct2po3rn5crwy"
+spawn_root = NodePath("..")
+metadata/_custom_type_script = "uid://x3ptl6rgkiyc"
+
+[node name="NPCSpawner" type="MultiplayerSpawner" parent="Level"]
+unique_name_in_owner = true
+_spawnable_scenes = PackedStringArray("uid://32r1y35wu16o")
+spawn_path = NodePath("..")
+script = ExtResource("10_hve3p")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)

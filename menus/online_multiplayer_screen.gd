@@ -28,8 +28,8 @@ func _on_host_click():
 func _on_join_click(code: String):
 	var peer_id: String = _find_key(lobby_client.lobbies, func(key, value):
 		return value.code == code
-	)
-	if peer_id:
+	, "")
+	if not peer_id.is_empty():
 		var lobby_info: Dictionary = lobby_client.lobbies[peer_id]
 		on_lobby_joined.emit(lobby_info.port)
 

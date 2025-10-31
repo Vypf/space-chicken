@@ -28,6 +28,10 @@ window/stretch/scale_mode="integer"
 
 enabled=PackedStringArray("res://addons/godot_multiplayer/plugin.cfg")
 
+[global_group]
+
+sync_npc=""
+
 [gui]
 
 theme/custom="uid://c4vjpbjeeo4cp"
