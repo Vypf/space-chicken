@@ -29,6 +29,10 @@ func get_game_instance_url(port: int) -> String:
 	return "ws://localhost:" + str(port)
 
 func get_lobby_manager_url() -> String:
+	# Allow override via command-line argument (useful for Docker)
+	if Config.arguments.has("lobby_url"):
+		return Config.arguments["lobby_url"]
+
 	if Config.is_production:
 		return "wss://" + SERVER_URL
 	return "ws://localhost:" + str(PORT)

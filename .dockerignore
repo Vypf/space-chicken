@@ -1,0 +1,25 @@
+# Godot generated files
+# Note: .godot/ is included for uid_cache.bin (needed to resolve UIDs)
+.import/
+*.translation
+
+# Development files
+.git/
+.gitignore
+.gitmodules
+.gitattributes
+
+# Executables (Windows only, we download Linux version)
+executables/
+
+# Logs
+logs/
+*.log
+
+# Documentation
+*.md
+
+# Docker files
+Dockerfile
+.dockerignore
+docker-compose.yml

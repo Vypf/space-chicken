@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=0 format=3 uid="uid://c4vjpbjeeo4cp"]
+[gd_resource type="Theme" format=3 uid="uid://c4vjpbjeeo4cp"]
 
 [resource]
 MarginContainer/constants/margin_bottom = 8
