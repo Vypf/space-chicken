@@ -351,15 +351,3 @@ replication_config = SubResource("SceneReplicationConfig_g1dw6")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_yw30f")
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_top = -40.0
-offset_right = 40.0
-
-[node name="Label" type="Label" parent="Control"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0

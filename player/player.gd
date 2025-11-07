@@ -5,7 +5,6 @@ extends CharacterBody2D
 @export var acceleration := 1800.0
 @export var deceleration := 1200.0
 @onready var input: OnlineInput = %Input
-@onready var label: Label = %Label
 
 var last_facing_direction := Vector2(0, -1)
 
@@ -33,8 +32,7 @@ func _physics_process(delta) -> void:
 	move_and_slide()
 
 
-func _process(delta):	
-	label.text ="is_multiplayer_authority: " + str(is_multiplayer_authority())
+func _process(delta):
 	var idle = !velocity
 	
 	if !idle:
