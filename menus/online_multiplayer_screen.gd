@@ -5,7 +5,7 @@ class_name OnlineMultiplayerScreen
 
 @onready var lobby_panel: LobbyPanel = %LobbyPanel
 
-signal on_lobby_joined(lobby_info: Dictionary)
+signal on_lobby_joined(lobby_info: LobbyInfo)
 
 var _requested_lobby_code: String
 
@@ -15,7 +15,7 @@ func _ready():
 	lobby_panel.on_host_click.connect(_on_host_click)
 	lobby_panel.on_join_click.connect(_on_join_click)
 
-func _on_lobby_connected(peer_id: int, lobby_info: Dictionary):
+func _on_lobby_connected(peer_id: String, lobby_info: LobbyInfo):
 	if lobby_info.code == _requested_lobby_code:
 		on_lobby_joined.emit(lobby_info)
 
@@ -30,7 +30,7 @@ func _on_join_click(code: String):
 		return value.code == code
 	, "")
 	if not peer_id.is_empty():
-		var lobby_info: Dictionary = lobby_client.lobbies[peer_id]
+		var lobby_info: LobbyInfo = lobby_client.lobbies[peer_id]
 		on_lobby_joined.emit(lobby_info)
 
 ## Retourne la première clé du dictionnaire pour laquelle le callable renvoie true.

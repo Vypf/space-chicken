@@ -22,7 +22,7 @@ var type:String:
 
 const SERVER_URL: String = "games.yvonnickfrin.dev"
 const LOBBY_PORT = 17018
-func get_game_instance_url(lobby_info: Dictionary) -> String:
+func get_game_instance_url(lobby_info: LobbyInfo) -> String:
 	if Config.is_production:
 		return "wss://" + SERVER_URL + "/" + lobby_info.code
 	return "ws://localhost:" + str(lobby_info.port)
@@ -58,7 +58,7 @@ func _ready():
 			hide_screen(online_multiplayer_screen)
 			waiting_room.show()
 		)
-		online_multiplayer_screen.on_lobby_joined.connect(func(lobby_info: Dictionary):
+		online_multiplayer_screen.on_lobby_joined.connect(func(lobby_info: LobbyInfo):
 			game_instance.create_client(get_game_instance_url(lobby_info))
 		)
 		lobby_client.join(get_lobby_manager_url())
@@ -83,9 +83,11 @@ func _ready():
 			return
 		
 		game_instance.create_server(port, code)
-		lobby_client.lobby_info = {
-			"port": port, "code": code, "pId": OS.get_process_id()
-		}
+		var info = LobbyInfo.new()
+		info.port = int(port)
+		info.code = code
+		info.pId = OS.get_process_id()
+		lobby_client.lobby_info = info
 		lobby_client.join(get_lobby_manager_url())
 	# For dev purpose only
 	elif type == TYPES.LOBBY:
