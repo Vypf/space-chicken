@@ -7,4 +7,5 @@ func _ready():
 	animated_sprite.play("idle")
 
 func interact(player: CharacterBody2D):
-	queue_free()
+	if (is_multiplayer_authority()):
+		queue_free()

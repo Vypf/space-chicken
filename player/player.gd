@@ -9,7 +9,7 @@ extends CharacterBody2D
 var last_facing_direction := Vector2(0, -1)
 
 func _ready():
-		# Avatar's input object is owned by player
+	# Avatar's input object is owned by player
 	var input = find_child("Input")
 	if input != null:
 		input.set_multiplayer_authority(int(name))
