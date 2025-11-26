@@ -33,7 +33,7 @@ COPY --from=godot-download /tmp/Godot_v4.5-stable_linux.x86_64 /usr/local/bin/go
 # Create app directory
 WORKDIR /app
 
-# Copy game files (including .godot/ for uid_cache.bin)
+# Copy game files
 COPY --chown=root:root . /app/
 
 # Remove directories that shouldn't be in the image
@@ -42,8 +42,10 @@ RUN rm -rf /app/executables /app/logs /app/.git
 # Create logs directory for runtime
 RUN mkdir -p /app/logs
 
-# Note: .godot/ is versioned and included in the image
-# This contains imported assets and cache files required for headless mode
+# Import assets in headless mode
+# This generates .godot/imported/ which is required for textures and resources
+# Using --quit-after 2 instead of --quit due to Godot bug #77508
+RUN /usr/local/bin/godot --headless --path /app --editor --quit-after 2 || true
 
 # Default port for game server (can be overridden)
 EXPOSE 8080
