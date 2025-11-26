@@ -64,9 +64,6 @@ func _ready():
 		lobby_client.join(get_lobby_manager_url())
 	elif type == TYPES.SERVER:
 		_set_window_title(TYPES.SERVER)
-		print(Config.arguments)
-		print(Config.arguments["lobby_url"])
-		print(get_lobby_manager_url())
 		lobby_manager.on_game_start_requested.connect(func(slots):
 			player_spawner.spawn_players(slots)
 			level.spawn_npcs(npc_spawner)
@@ -92,10 +89,13 @@ func _ready():
 	# For dev purpose only
 	elif type == TYPES.LOBBY:
 		_set_window_title(TYPES.LOBBY)
-		lobby_server._paths = Config.arguments.get("paths", {})
-		lobby_server._executable_paths = Config.arguments.get("executable_paths", {})
-		lobby_server._log_folder = Config.arguments.get("log_folder", "")
-		lobby_server._environment = Config.arguments.get("environment", "development")
+		var instance_manager = LocalInstanceManager.new(
+			Config.arguments.get("paths", {}),
+			Config.arguments.get("executable_paths", {}),
+			Config.arguments.get("log_folder", ""),
+			Config.arguments.get("environment", "development")
+		)
+		lobby_server._instance_manager = instance_manager
 		lobby_server.start(Config.arguments.get("port", LOBBY_PORT))
 	else: 
 		print(type + " type is not supported.")

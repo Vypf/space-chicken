@@ -7,20 +7,13 @@ class_name OnlineMultiplayerScreen
 
 signal on_lobby_joined(lobby_info: LobbyInfo)
 
-var _requested_lobby_code: String
-
 func _ready():
-	lobby_client.lobby_connected.connect(_on_lobby_connected)
 	lobby_client.lobby_created.connect(_on_lobby_created)
 	lobby_panel.on_host_click.connect(_on_host_click)
 	lobby_panel.on_join_click.connect(_on_join_click)
 
-func _on_lobby_connected(peer_id: String, lobby_info: LobbyInfo):
-	if lobby_info.code == _requested_lobby_code:
-		on_lobby_joined.emit(lobby_info)
-
-func _on_lobby_created(code):
-	_requested_lobby_code = code
+func _on_lobby_created(lobby_info: LobbyInfo):
+	on_lobby_joined.emit(lobby_info)
 	
 func _on_host_click():
 	lobby_client.create()
