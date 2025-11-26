@@ -42,10 +42,9 @@ RUN rm -rf /app/executables /app/logs /app/.git
 # Create logs directory for runtime
 RUN mkdir -p /app/logs
 
-# Note: .godot/ is included to preserve uid_cache.bin
-# This allows Godot to resolve UIDs (uid://xxxx) to actual file paths
-# If you encounter issues, uncomment the line below to regenerate the cache:
-# RUN /usr/local/bin/godot --headless --path /app --import --quit
+# Import assets and regenerate cache
+# This is required for headless Godot to load textures and other imported resources
+RUN /usr/local/bin/godot --headless --path /app --import --quit || true
 
 # Default port for game server (can be overridden)
 EXPOSE 8080
