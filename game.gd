@@ -43,8 +43,6 @@ func get_lobby_manager_url() -> String:
 	return "ws://localhost:" + str(LOBBY_PORT)
 
 func _ready():
-	_configure_ssl()
-
 	if type == TYPES.PLAYER:
 		_set_window_title(TYPES.PLAYER)
 		print("client is " + TYPES.PLAYER)
@@ -120,8 +118,3 @@ func _set_window_title(title: String):
 	var window = get_window()
 	if window:
 		window.title = title
-
-func _configure_ssl():
-	var verify_ssl = Config.arguments.get("verify_ssl", true)
-	lobby_client.verify_ssl = verify_ssl
-	game_instance.verify_ssl = verify_ssl

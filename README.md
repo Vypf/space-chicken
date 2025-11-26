@@ -61,13 +61,12 @@ Utiliser la fonctionnalité **Instances multiples** intégrée à Godot pour tou
 | `--server_url=HOST` | Clients | Serveur cible (défaut: `games.yvonnickfrin.dev`). Dérive les URLs du lobby (`wss://HOST/lobby`) et des game instances (`wss://HOST/{CODE}`) |
 | `--lobby_url=URL` | Game servers Docker | URL complète pour s'enregistrer auprès du lobby interne (ex: `ws://game-lobby:17018`) |
 | `--environment=development` | Tous | Active le mode développement (URLs en `ws://localhost:PORT` au lieu de dériver depuis `server_url`) |
-| `--verify_ssl=false` | Clients | Désactive la vérification SSL pour accepter les certificats auto-signés (défaut: `true`) |
 
 **Exemples :**
 
 ```bash
-# Client vers infra Docker locale avec certificat auto-signé
-Godot_v4.5-stable_win64.exe --path . --server_url=localhost --verify_ssl=false
+# Client vers infra Docker locale
+Godot_v4.5-stable_win64.exe --path . --server_url=localhost
 
 # Client en mode développement pur (lobby local sur port 17018)
 Godot_v4.5-stable_win64.exe --path . --environment=development
