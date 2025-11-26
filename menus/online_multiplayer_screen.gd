@@ -7,13 +7,29 @@ class_name OnlineMultiplayerScreen
 
 signal on_lobby_joined(lobby_info: LobbyInfo)
 
+var _requested_lobby_code: String = ""
+
 func _ready():
 	lobby_client.lobby_created.connect(_on_lobby_created)
+	lobby_client.lobbies_updated.connect(_on_lobbies_updated)
 	lobby_panel.on_host_click.connect(_on_host_click)
 	lobby_panel.on_join_click.connect(_on_join_click)
 
 func _on_lobby_created(lobby_info: LobbyInfo):
-	on_lobby_joined.emit(lobby_info)
+	# Store the code and wait for lobbies_updated to confirm the server is ready
+	_requested_lobby_code = lobby_info.code
+
+func _on_lobbies_updated():
+	if _requested_lobby_code.is_empty():
+		return
+	# Check if our created lobby is now registered and ready
+	var peer_id: String = _find_key(lobby_client.lobbies, func(key, value):
+		return value.code == _requested_lobby_code
+	, "")
+	if not peer_id.is_empty():
+		var lobby_info: LobbyInfo = lobby_client.lobbies[peer_id]
+		_requested_lobby_code = ""
+		on_lobby_joined.emit(lobby_info)
 	
 func _on_host_click():
 	lobby_client.create()
