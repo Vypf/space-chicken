@@ -42,9 +42,8 @@ RUN rm -rf /app/executables /app/logs /app/.git
 # Create logs directory for runtime
 RUN mkdir -p /app/logs
 
-# Import assets and regenerate cache
-# This is required for headless Godot to load textures and other imported resources
-RUN /usr/local/bin/godot --headless --path /app --import --quit || true
+# Note: .godot/ is versioned and included in the image
+# This contains imported assets and cache files required for headless mode
 
 # Default port for game server (can be overridden)
 EXPOSE 8080
