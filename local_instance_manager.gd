@@ -8,6 +8,7 @@ var _paths: Dictionary = {}
 var _executable_paths: Dictionary = {}
 var _log_folder: String = ""
 var _environment: String = "development"
+var _lobby_url: String = ""
 var _logger: CustomLogger
 
 
@@ -15,12 +16,14 @@ func _init(
 	paths: Dictionary = {},
 	executable_paths: Dictionary = {},
 	log_folder: String = "",
-	environment: String = "development"
+	environment: String = "development",
+	lobby_url: String = ""
 ):
 	_paths = paths
 	_executable_paths = executable_paths
 	_log_folder = log_folder
 	_environment = environment
+	_lobby_url = lobby_url
 	_logger = CustomLogger.new("LocalInstanceManager")
 
 
@@ -32,6 +35,7 @@ func spawn(game: String, code: String, port: int) -> Dictionary:
 
 	args = _add_root_to_args(root, args)
 	args = _add_log_path_to_args(log_path, args)
+	args = _add_lobby_url_to_args(args)
 
 	_logger.info("Spawning game server: " + executable_path + " " + " ".join(args), "spawn")
 
@@ -90,4 +94,11 @@ func _add_root_to_args(root: String, args: PackedStringArray) -> PackedStringArr
 		return args
 	args.insert(0, "--path")
 	args.insert(1, root)
+	return args
+
+
+func _add_lobby_url_to_args(args: PackedStringArray) -> PackedStringArray:
+	if _lobby_url.is_empty():
+		return args
+	args.append("--lobby_url=" + _lobby_url)
 	return args
