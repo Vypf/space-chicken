@@ -25,4 +25,5 @@ func start():
 @rpc("any_peer", "call_local")
 func _start():
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	# TODO: Verifier si ce signal sert toujours
 	on_started.emit()

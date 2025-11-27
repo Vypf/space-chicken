@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://23f2lnjlgdhf"]
 
 [ext_resource type="Script" uid="uid://dg6w4mpejdt0q" path="res://game.gd" id="1_e2o6t"]
-[ext_resource type="PackedScene" uid="uid://csi27e1uhde5i" path="res://menus/online_multiplayer_screen.tscn" id="2_e2o6t"]
+[ext_resource type="PackedScene" path="res://addons/godot_multiplayer/ui/online_multiplayer_screen.tscn" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://duduqyiwbiuho" path="res://addons/godot_multiplayer/game/game_instance.gd" id="3_feb5d"]
-[ext_resource type="PackedScene" uid="uid://c6klart7xn108" path="res://menus/waiting_room.tscn" id="3_ryrav"]
+[ext_resource type="PackedScene" path="res://addons/godot_multiplayer/ui/waiting_room.tscn" id="3_ryrav"]
 [ext_resource type="Script" uid="uid://b6xd7jiuwinua" path="res://addons/godot_multiplayer/lobby/lobby_client.gd" id="4_fc0e3"]
 [ext_resource type="Script" uid="uid://bmiddwn30p52v" path="res://addons/godot_multiplayer/lobby/lobby_manager.gd" id="5_7jktm"]
 [ext_resource type="PackedScene" uid="uid://cmebmotxueji1" path="res://common/dummy_scene.tscn" id="7_eow3j"]

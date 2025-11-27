@@ -47,10 +47,10 @@ var arguments := {}:
 var is_production: bool:
 	get:
 		var args = arguments
-		return (
-			OS.has_feature("production")
-			or (args.has("environment") and args["environment"] == "production")
-		)
+		# Production by default, must explicitly set environment=development for dev mode
+		if args.has("environment") and args["environment"] == "development":
+			return false
+		return true
 
 
 func _ready():
