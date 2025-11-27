@@ -29,6 +29,13 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Setup export templates
+        run: |
+          # GitHub Actions uses /github/home as HOME, but templates are in /root/
+          mkdir -p ~/.local/share/godot/export_templates/4.5.stable
+          cp -r /root/.local/share/godot/export_templates/4.5.stable/* ~/.local/share/godot/export_templates/4.5.stable/
+          ls -la ~/.local/share/godot/export_templates/4.5.stable/ | head -10
+
       - name: Import assets
         run: godot --headless --path . --import || true
 
