@@ -59,10 +59,9 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # Disable cache to ensure submodule changes are always picked up
+          no-cache: true
           platforms: linux/amd64
 
       - name: Image digest
         run: echo ${{ steps.meta.outputs.digest }}
-# Cache bust: 1764253442
