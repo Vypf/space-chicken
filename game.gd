@@ -20,15 +20,23 @@ var type:String:
 	get:
 		return Config.arguments.get("server_type", TYPES.PLAYER)
 
-const DEFAULT_SERVER_URL: String = "games.yvonnickfrin.dev"
 const LOBBY_PORT = 17018
 
+## Server URL - in web exports, uses the production URL from ProjectSettings
+## Bug workaround: feature tag overrides don't work at runtime (godotengine/godot#101207)
 var server_url: String:
 	get:
-		return Config.arguments.get("server_url", DEFAULT_SERVER_URL)
+		if OS.has_feature("web"):
+			return ProjectSettings.get_setting("application/config/server_url_production", "")
+		return ProjectSettings.get_setting("application/config/server_url", "")
+
+## Returns true if server_url is configured (via feature tag in export)
+var is_production: bool:
+	get:
+		return not server_url.is_empty()
 
 func get_game_instance_url(lobby_info: LobbyInfo) -> String:
-	if Config.is_production:
+	if is_production:
 		return "wss://" + server_url + "/" + lobby_info.code
 	return "ws://localhost:" + str(lobby_info.port)
 
@@ -37,8 +45,7 @@ func get_lobby_manager_url() -> String:
 	if Config.arguments.has("lobby_url"):
 		return Config.arguments["lobby_url"]
 
-	# For clients, derive lobby URL from server_url
-	if Config.is_production:
+	if is_production:
 		return "wss://" + server_url + "/lobby"
 	return "ws://localhost:" + str(LOBBY_PORT)
 

@@ -28,7 +28,7 @@ Utiliser le projet [Vypf/lobby](https://github.com/Vypf/lobby) pour lancer l'inf
 
 2. **Lancer 2+ clients joueurs** depuis Godot ou en ligne de commande :
    ```bash
-   Godot_v4.5-stable_win64.exe --path . --server_url=localhost
+   Godot_v4.5-stable_win64.exe --path .
    ```
 
 3. Un joueur crée une partie, les autres rejoignent avec le code généré.
@@ -54,22 +54,41 @@ Utiliser la fonctionnalité **Instances multiples** intégrée à Godot pour tou
 
 > **Note :** Dans ce mode, le lobby génère les serveurs de jeu comme processus Godot séparés via `OS.create_process()`.
 
-### Arguments de configuration
+### Configuration
+
+#### Mode production vs développement
+
+Le mode est déterminé par la présence de `server_url` dans les ProjectSettings :
+- **Production** : `server_url` est défini via le feature tag `production` dans l'export preset
+- **Développement** : `server_url` est vide (par défaut), utilise `ws://localhost:PORT`
+
+#### Feature tags (export presets)
+
+Dans `project.godot` :
+```ini
+[application]
+config/server_url=""
+config/server_url.production="games.yvonnickfrin.dev"
+```
+
+Dans `export_presets.cfg`, ajouter le feature tag `production` pour activer l'URL de production :
+```ini
+custom_features="production"
+```
+
+#### Arguments en ligne de commande
 
 | Argument | Utilisé par | Description |
 |----------|-------------|-------------|
-| `--server_url=HOST` | Clients | Serveur cible (défaut: `games.yvonnickfrin.dev`). Dérive les URLs du lobby (`wss://HOST/lobby`) et des game instances (`wss://HOST/{CODE}`) |
-| `--lobby_url=URL` | Game servers Docker | URL complète pour s'enregistrer auprès du lobby interne (ex: `ws://game-lobby:17018`) |
-| `--environment=development` | Tous | Active le mode développement (URLs en `ws://localhost:PORT` au lieu de dériver depuis `server_url`) |
+| `--lobby_url=URL` | Game servers Docker | URL pour s'enregistrer auprès du lobby interne (ex: `ws://game-lobby:17018`) |
+| `server_type=room` | Game servers | Démarre en mode serveur de jeu |
+| `server_type=lobby` | Lobby | Démarre en mode lobby |
 
 **Exemples :**
 
 ```bash
-# Client vers infra Docker locale
-Godot_v4.5-stable_win64.exe --path . --server_url=localhost
-
-# Client en mode développement pur (lobby local sur port 17018)
-Godot_v4.5-stable_win64.exe --path . --environment=development
+# Client en développement (depuis l'éditeur ou export sans feature tag)
+Godot_v4.5-stable_win64.exe --path .
 
 # Game server Docker vers lobby interne
 server_type=room code=ABC123 port=18000 --lobby_url=ws://game-lobby:17018

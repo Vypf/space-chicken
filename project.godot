@@ -14,6 +14,8 @@ config/name="Space Chicken"
 run/main_scene="uid://23f2lnjlgdhf"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+config/server_url="games.yvonnickfrin.dev"
+config/server_url_production="games.yvonnickfrin.dev"
 
 [autoload]
 
