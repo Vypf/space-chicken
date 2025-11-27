@@ -4,8 +4,8 @@ FROM barichello/godot-ci:4.5 AS builder
 WORKDIR /game
 COPY . .
 
-# Import assets first
-RUN godot --headless --path /game --editor --quit-after 2 || true
+# Import assets first (--import generates uid_cache.bin)
+RUN godot --headless --path /game --import || true
 
 # Export web build
 RUN mkdir -p /game/build/web && \
