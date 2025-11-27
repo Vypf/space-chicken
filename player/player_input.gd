@@ -1,4 +1,5 @@
 extends OnlineInput
+class_name PlayerInput
 
 var direction: Vector2 = Vector2.ZERO
 

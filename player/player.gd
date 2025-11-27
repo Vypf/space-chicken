@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var max_speed := 300.0
 @export var acceleration := 1800.0
 @export var deceleration := 1200.0
-@onready var input: OnlineInput = %Input
+@onready var input: PlayerInput = %Input
 
 var last_facing_direction := Vector2(0, -1)
 
