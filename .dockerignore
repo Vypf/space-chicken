@@ -1,5 +1,6 @@
 # Godot generated files
-# Note: .godot/ is included for uid_cache.bin (needed to resolve UIDs)
+# Exclude .godot/ to simulate GitHub Actions environment (no local cache)
+.godot/
 .import/
 *.translation
 

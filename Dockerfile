@@ -43,9 +43,9 @@ RUN rm -rf /app/executables /app/logs /app/.git
 RUN mkdir -p /app/logs
 
 # Import assets in headless mode
-# This generates .godot/imported/ which is required for textures and resources
-# Using --quit-after 2 instead of --quit due to Godot bug #77508
-RUN /usr/local/bin/godot --headless --path /app --editor --quit-after 2 || true
+# This generates .godot/imported/ and .godot/uid_cache.bin
+# Using --import to properly generate UID cache (see godotengine/godot#107695)
+RUN /usr/local/bin/godot --headless --path /app --import || true
 
 # Default port for game server (can be overridden)
 EXPOSE 8080
