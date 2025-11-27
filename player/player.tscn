@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://53fh04v3j7bv" path="res://player/chicken.png" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://dks1gewrn0mnj" path="res://player/player.gd" id="1_rkbax"]
-[ext_resource type="Script" uid="uid://d1ei3myjpdmqy" path="res://addons/godot_multiplayer/game/input.gd" id="3_g1dw6"]
+[ext_resource type="Script" path="res://player/player_input.gd" id="3_g1dw6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hg6s5"]
 radius = 5.0990195
